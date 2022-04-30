@@ -1,6 +1,6 @@
-import React from 'react';
-import {Text, View, TouchableOpacity} from 'react-native';
+import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch} from 'react-redux';
 
 import {Header} from '../components/Header';
 import {CarouselGyms} from '../Home/components/CarouselGyms';
@@ -8,8 +8,20 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {Container, ButtonGyms, TextButton} from './styles';
 
+import * as GymsActions from '../../store/ducks/gyms/actions';
+
 export const Home = () => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getGyms();
+  }, []);
+
+  const getGyms = async () => {
+    await dispatch(GymsActions.loadRequest());
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <Header home={true} />
