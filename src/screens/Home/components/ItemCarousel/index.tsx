@@ -2,27 +2,21 @@ import React from 'react';
 
 import {Container, ImageCarousel, GymName, GymAddress} from './styles';
 
-interface IItemCarousel {
-  item: {
-    GymName: string;
-    address: string;
-    image: string;
-  };
-}
+import {IItemGym} from '../../../../Interfaces/IItemGym';
 
-export const ItemCarousel: React.FC<IItemCarousel> = ({item}) => {
+export const ItemCarousel: React.FC<IItemGym> = props => {
   return (
     <Container style={{backgroundColor: '#3a3a3a'}}>
       <ImageCarousel
         source={{
-          uri: item.image,
+          uri: props.attributes.main_image_url,
         }}
         style={{
           resizeMode: 'stretch',
         }}
       />
-      <GymName>{item.GymName}</GymName>
-      <GymAddress>{item.address}</GymAddress>
+      <GymName>{props.attributes.name}</GymName>
+      <GymAddress>{props.attributes.full_address}</GymAddress>
     </Container>
   );
 };

@@ -1,4 +1,10 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
+import {FlatList} from 'react-native';
+
+import {ApplicationState} from '../../../../store';
+
+import {IItemGym} from '../../../../Interfaces/IItemGym';
 
 import {
   Container,
@@ -11,24 +17,29 @@ import {
   Distance,
 } from './styles';
 
-const teste = [1, 2, 3, 4];
-
 export const ItemGym = () => {
+  const gyms: IItemGym = useSelector(
+    (state: ApplicationState) => state.gyms.data,
+  );
   return (
     <Container>
-      <ImageGym
-        source={{
-          uri: 'https://assets.totalpass.com/mobile/IMAGENS_APP_QUEIMA_PERSONAL_2.png',
-        }}
-      />
-      <ContainerDetails>
-        <NameGym>Smart Fit Liberdade</NameGym>
-        <AddressGym>Av. Brigadeiro Luis Antonio, 535</AddressGym>
-        <Accessible>Disponivel em seu plano</Accessible>
-      </ContainerDetails>
-      <ContainerKm>
-        <Distance>390 m</Distance>
-      </ContainerKm>
+      <FlatList>
+        <ImageGym
+          source={{
+            uri: gyms.attributes.main_image_url,
+          }}
+        />
+        <ContainerDetails>
+          <NameGym>{gyms.attributes.name}</NameGym>
+          <AddressGym>{gyms.attributes.full_address}</AddressGym>
+          {gyms.attributes.accessible_by_user && (
+            <Accessible>Disponivel em seu plano</Accessible>
+          )}
+        </ContainerDetails>
+        <ContainerKm>
+          <Distance>390 m</Distance>
+        </ContainerKm>
+      </FlatList>
     </Container>
   );
 };

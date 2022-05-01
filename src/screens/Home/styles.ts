@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const ContainerAll = styled.SafeAreaView`
+  flex: 1;
+`;
+
 export const Container = styled.View`
   width: 100%;
   height: 45%;

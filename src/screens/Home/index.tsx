@@ -6,7 +6,7 @@ import {Header} from '../components/Header';
 import {CarouselGyms} from '../Home/components/CarouselGyms';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-import {Container, ButtonGyms, TextButton} from './styles';
+import {ContainerAll, Container, ButtonGyms, TextButton} from './styles';
 
 import * as GymsActions from '../../store/ducks/gyms/actions';
 

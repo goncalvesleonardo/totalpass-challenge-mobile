@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import {useSelector} from 'react-redux';
+
+import {ApplicationState} from '../../../../store';
 
 import {ItemCarousel} from '../ItemCarousel';
 
@@ -44,6 +47,25 @@ const slides = [
 ];
 
 export const CarouselGyms = () => {
+  const [gymFavorites, setGymsFavorites] = useState([]);
+
+  useEffect(() => {
+    gymFavorite();
+    console.log('gymsfavorites', gymFavorites);
+  }, []);
+
+  const gyms = useSelector((state: ApplicationState) => state.gyms.data);
+  console.log('gymsState', gyms);
+
+  const gymFavorite = () => {
+    let data = [];
+
+    gyms.map(gym => {
+      if (gym.attributes.is_favorite == true) {
+        setGymsFavorites([...data, gym]);
+      }
+    });
+  };
   return (
     <Container>
       <CarouselTop>
@@ -55,7 +77,7 @@ export const CarouselGyms = () => {
           activeDotStyle
           horizontal
           renderItem={ItemCarousel}
-          data={slides}
+          data={gymFavorites}
           showPrevButton={false}
           showNextButton={false}
           showDoneButton={false}
